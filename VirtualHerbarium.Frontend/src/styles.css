@@ -1,0 +1,19 @@
+/* You can add global styles to this file, and also import other style files */
+
+body {
+    /* background-color: #b1fa7d; */
+    /* background-color: lightgreen; */
+    /* background-image: url("./assets/images/43265963-seamless-watercolor-background-of-green-leaves-pattern-composed-of-tea-leaves-vector-pattern-.jpg"); */
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.max-width-350 {
+    max-width: 350px;
+}
+
+.max-height-350 {
+    max-height: 350px;
+}

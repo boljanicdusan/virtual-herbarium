@@ -1,0 +1,74 @@
+<div class="ml-5 mr-5">
+
+    <form>
+        <div class="row mb-5">
+            <div class="col-lg-2 col-md-6 col-sm-12">
+                <div class="form-group">
+                    <label for="vrsta">Vrsta</label>
+                    <input [(ngModel)]="plantFilterParams.vrsta" name="vrsta" type="text" class="form-control" id="vrsta">
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-6 col-sm-12">
+                <div class="form-group">
+                    <label for="porodica">Porodica</label>
+                    <input [(ngModel)]="plantFilterParams.porodica" name="porodica" type="text" class="form-control" id="porodica">
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-6 col-sm-12">
+                <div class="form-group">
+                    <label for="red">Red</label>
+                    <input [(ngModel)]="plantFilterParams.red" name="red" type="text" class="form-control" id="red">
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-6 col-sm-12">
+                <div class="form-group">
+                    <label for="staniste">Staniste</label>
+                    <input [(ngModel)]="plantFilterParams.staniste" name="staniste" type="text" class="form-control" id="staniste">
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-6 col-sm-12">
+                <div class="form-group">
+                    <label for="mjesto">Mjesto</label>
+                    <input [(ngModel)]="plantFilterParams.mjesto" name="mjesto" type="text" class="form-control" id="mjesto">
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-6 col-sm-12 search-button">
+                <button type="submit" class="btn btn-success" (click)="search()">Pretrazi</button>
+            </div>
+        </div>
+    </form>
+
+
+
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Vrsta</th>
+                        <th scope="col">Porodica</th>
+                        <th scope="col">Red</th>
+                        <th scope="col" *ngIf="innerWidth > 900">Staniste</th>
+                        <th scope="col" *ngIf="innerWidth > 900">Mjesto</th>
+                        <th scope="col" *ngIf="authService.isAuthenticated() && innerWidth > 900">Akcije</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let plant of plants; index as i">
+                        <th scope="row" class="cursor-pointer" [routerLink]="['/plants/details/', plant.id]"><em>{{ plant.vrsta }}</em></th>
+                        <td>{{ plant.porodica }}</td>
+                        <td>{{ plant.red }}</td>
+                        <td *ngIf="innerWidth > 900">{{ plant.staniste }}</td>
+                        <td *ngIf="innerWidth > 900">{{ plant.mjesto }}</td>
+                        <td *ngIf="authService.isAuthenticated() && innerWidth > 900">
+                            <a class="mr-2" [routerLink]="['/plants/edit/', plant.id]">Edituj</a>
+                            <a class="cursor-pointer" [routerLink]="" (click)="delete(plant.id)">Izbrisi</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <button *ngIf="authService.isAuthenticated()" type="button" class="btn btn-success" [routerLink]="['/plants/new']">Dodaj novu biljku</button>
+</div>

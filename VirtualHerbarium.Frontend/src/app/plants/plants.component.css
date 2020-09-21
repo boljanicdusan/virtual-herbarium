@@ -1,0 +1,21 @@
+.main {
+    width: 80%;
+    background-color: #ffffff;
+    align-items: center;
+    margin-top: 50px;
+    margin-bottom: 30px;
+    padding: 15px;
+    border-radius: 10px;
+    /* border-color: green;
+    border-width: 2px; */
+    border: 2px solid green;
+}
+
+@media only screen and (max-width: 750px) {
+    .main {
+        width: 95%;
+        margin-top: 20px;
+        padding: 5px;
+    }
+}
+

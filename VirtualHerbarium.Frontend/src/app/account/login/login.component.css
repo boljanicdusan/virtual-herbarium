@@ -1,0 +1,10 @@
+.main {
+    width: 400px;
+    background-color: #ffffff;
+    align-items: center;
+    margin-top: 50px;
+    padding: 30px;
+    border-radius: 10px;
+    border: 2px solid green;
+
+}
