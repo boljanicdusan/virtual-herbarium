@@ -1,3 +1,4 @@
+import { environment } from './../../../environments/environment';
 import { PlantService } from './../plant.service';
 import { Component, OnInit } from '@angular/core';
 import { Plant } from '../plant.model';
@@ -16,6 +17,8 @@ export class PlantFormComponent implements OnInit {
 
     slika: string;
     slikaUPrirodi: string;
+
+    baseUrl = environment.baseUrl;
 
     constructor(
         private plantService: PlantService,

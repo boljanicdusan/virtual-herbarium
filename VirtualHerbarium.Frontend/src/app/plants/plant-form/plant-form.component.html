@@ -39,7 +39,7 @@
             </label>
 
             <div *ngIf="plant.id && slika">
-                <img class="max-width-350 max-height-350" src="http://localhost:5000/images/{{slika}}" [alt]="slika" />
+                <img class="max-width-350 max-height-350" src="{{ baseUrl }}images/{{slika}}" [alt]="slika" />
             </div>
             <input *ngIf="!slika" type="file" class="form-control" id="slika" name="slika" (change)="imageUploaded($event, 'slika')">
 
@@ -50,7 +50,7 @@
                 <button *ngIf="plant.id && slikaUPrirodi" (click)="removeImage('slikaUPrirodi')" type="button" class="btn btn-danger">Ukloni sliku</button>
             </label>
             <div *ngIf="plant.id && slikaUPrirodi">
-                <img class="max-width-350 max-height-350" src="http://localhost:5000/images/{{slikaUPrirodi}}" [alt]="slikaUPrirodi" />
+                <img class="max-width-350 max-height-350" src="{{ baseUrl }}images/{{slikaUPrirodi}}" [alt]="slikaUPrirodi" />
             </div>
             <input *ngIf="!slikaUPrirodi" type="file" class="form-control" id="slika-u-prirodi" name="slikaUPrirodi" (change)="imageUploaded($event, 'slikaUPrirodi')">
         </div>
