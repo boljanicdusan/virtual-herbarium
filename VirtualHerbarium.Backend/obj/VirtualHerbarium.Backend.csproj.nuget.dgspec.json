@@ -1,31 +1,26 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Data\\Projects\\Virtual Herbarium\\VirtualHerbarium.Backend\\VirtualHerbarium.Backend.csproj": {}
+    "C:\\Users\\Kristina Zlajic\\Desktop\\Herbarium\\virtual-herbarium\\VirtualHerbarium.Backend\\VirtualHerbarium.Backend.csproj": {}
   },
   "projects": {
-    "C:\\Data\\Projects\\Virtual Herbarium\\VirtualHerbarium.Backend\\VirtualHerbarium.Backend.csproj": {
+    "C:\\Users\\Kristina Zlajic\\Desktop\\Herbarium\\virtual-herbarium\\VirtualHerbarium.Backend\\VirtualHerbarium.Backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Data\\Projects\\Virtual Herbarium\\VirtualHerbarium.Backend\\VirtualHerbarium.Backend.csproj",
+        "projectUniqueName": "C:\\Users\\Kristina Zlajic\\Desktop\\Herbarium\\virtual-herbarium\\VirtualHerbarium.Backend\\VirtualHerbarium.Backend.csproj",
         "projectName": "VirtualHerbarium.Backend",
-        "projectPath": "C:\\Data\\Projects\\Virtual Herbarium\\VirtualHerbarium.Backend\\VirtualHerbarium.Backend.csproj",
-        "packagesPath": "C:\\Users\\dusan.boljanic\\.nuget\\packages\\",
-        "outputPath": "C:\\Data\\Projects\\Virtual Herbarium\\VirtualHerbarium.Backend\\obj\\",
+        "projectPath": "C:\\Users\\Kristina Zlajic\\Desktop\\Herbarium\\virtual-herbarium\\VirtualHerbarium.Backend\\VirtualHerbarium.Backend.csproj",
+        "packagesPath": "C:\\Users\\Kristina Zlajic\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Kristina Zlajic\\Desktop\\Herbarium\\virtual-herbarium\\VirtualHerbarium.Backend\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\dusan.boljanic\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 19.2.config",
+          "C:\\Users\\Kristina Zlajic\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\DevExpress 19.2\\Components\\System\\Components\\Packages": {},
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
@@ -90,7 +85,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.301\\RuntimeIdentifierGraph.json"
         }
       }
     }
