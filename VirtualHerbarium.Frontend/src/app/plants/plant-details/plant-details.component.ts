@@ -1,3 +1,4 @@
+import { environment } from './../../../environments/environment';
 import { Component, OnInit } from '@angular/core';
 import { Plant } from '../plant.model';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -11,6 +12,8 @@ import { PlantService } from '../plant.service';
 export class PlantDetailsComponent implements OnInit {
 
     plant: Plant = new Plant();
+
+    baseUrl = environment.baseUrl;
 
     constructor(private plantService: PlantService, private activatedRoute: ActivatedRoute) { }
 
