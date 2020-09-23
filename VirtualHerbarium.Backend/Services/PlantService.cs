@@ -47,7 +47,7 @@ namespace VirtualHerbarium.Backend.Services
                 query = query.Where(p => p.Mjesto.Contains(mjesto));
             }
 
-            var plants = await query.ToListAsync();
+            var plants = await query.OrderBy(b => b.Vrsta).ToListAsync();
             return _mapper.Map<List<Plant>, List<PlantDto>>(plants);
         }
 

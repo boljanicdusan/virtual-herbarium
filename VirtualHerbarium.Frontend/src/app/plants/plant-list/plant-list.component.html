@@ -22,7 +22,7 @@
             </div>
             <div class="col-lg-2 col-md-6 col-sm-12">
                 <div class="form-group">
-                    <label for="staniste">Staniste</label>
+                    <label for="staniste">Stanište</label>
                     <input [(ngModel)]="plantFilterParams.staniste" name="staniste" type="text" class="form-control" id="staniste">
                 </div>
             </div>
@@ -33,12 +33,12 @@
                 </div>
             </div>
             <div class="col-lg-2 col-md-6 col-sm-12 search-button">
-                <button type="submit" class="btn btn-success" (click)="search()">Pretrazi</button>
+                <button type="submit" class="btn btn-success" (click)="search()">Pretraži</button>
             </div>
         </div>
     </form>
 
-
+    <button *ngIf="authService.isAuthenticated()" type="button" class="btn btn-success mb-3" [routerLink]="['/plants/new']">Dodaj novu biljku</button>
 
     <div class="row">
         <div class="col-12">
@@ -48,7 +48,7 @@
                         <th scope="col">Vrsta</th>
                         <th scope="col">Porodica</th>
                         <th scope="col">Red</th>
-                        <th scope="col" *ngIf="innerWidth > 900">Staniste</th>
+                        <th scope="col" *ngIf="innerWidth > 900">Stanište</th>
                         <th scope="col" *ngIf="innerWidth > 900">Mjesto</th>
                         <th scope="col" *ngIf="authService.isAuthenticated() && innerWidth > 900">Akcije</th>
                     </tr>
@@ -70,5 +70,16 @@
         </div>
     </div>
 
-    <button *ngIf="authService.isAuthenticated()" type="button" class="btn btn-success" [routerLink]="['/plants/new']">Dodaj novu biljku</button>
 </div>
+
+<footer *ngIf="plants && plants.length > 7" class="footer">
+    <div class="row">
+        <div class="col-sm-12 col-md-6 ">
+            <h6>Admin: Marina Šoškić (marinasoskic97@gmail.com)</h6>
+        </div>
+        <div class="col-sm-12 col-md-6 text-right">
+            <h6>Kreator: Dušan Boljanić (boljanicdusan@gmail.com)</h6>
+        </div>
+    </div>
+</footer>
+

@@ -6,14 +6,14 @@
 </div>
 
 <div class="row">
-    <div class="col-sm-12 col-md-6">
+    <div class="col-sm-12 col-md-6 p-5">
         <div *ngIf="plant.vrsta">
             <div class="row">
                 <div class="col-4">
                     <h5>Vrsta:</h5>
                 </div>
                 <div class="col-8">
-                    {{ plant.vrsta }}
+                    <em>{{ plant.vrsta }}</em>
                 </div>
             </div>
 
@@ -49,7 +49,7 @@
         <div *ngIf="plant.staniste">
             <div class="row">
                 <div class="col-4">
-                    <h5>Staniste:</h5>
+                    <h5>Stanište:</h5>
                 </div>
                 <div class="col-8">
                     {{ plant.staniste }}
@@ -91,7 +91,7 @@
                     <h5>Sinonim:</h5>
                 </div>
                 <div class="col-8">
-                    {{ plant.sinonim }}
+                    <em>{{ plant.sinonim }}</em>
                 </div>
             </div>
 
@@ -113,28 +113,34 @@
 
     </div>
     <div class="col-sm-12 col-md-6">
-        <div *ngIf="plant.slika">
-            <div class="row">
-                <div class="col-12 text-center">
-                    <h5>Slika:</h5>
+        <div class="row">
+            <div class="col-sm-12 col-md-6">
+                <div *ngIf="plant.slika">
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <!-- <h5>Slika:</h5> -->
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <img class="max-height-350 max-width-350 m-3" src="{{ baseUrl }}images/{{ plant.slika }}" (click)="showLightboxSlika(0,'slika')" [alt]="plant.slika">
+                        </div>
+                        <ng-image-fullscreen-view [images]="imagesObject" [imageIndex]="selectedImageIndex" [show]="showFlag" (close)="closeEventHandler()"></ng-image-fullscreen-view>
+                    </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-12 text-center">
-                    <img class="max-height-350 max-width-350 m-3" src="{{ baseUrl }}images/{{ plant.slika }}" (click)="showLightboxSlika(0,'slika')" [alt]="plant.slika">
-                </div>
-                <ng-image-fullscreen-view [images]="imagesObject" [imageIndex]="selectedImageIndex" [show]="showFlag" (close)="closeEventHandler()"></ng-image-fullscreen-view>
-            </div>
-        </div>
-        <div *ngIf="plant.slikaUPrirodi">
-            <div class="row">
-                <div class="col-12 text-center">
-                    <h5>Slika u prirodi:</h5>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12 text-center">
-                    <img class="max-height-350 max-width-350 m-3" src="{{ baseUrl }}images/{{plant.slikaUPrirodi}}" (click)="showLightboxSlika(0,'slikaUPrirodi')" [alt]="plant.slikaUPrirodi">
+            <div class="col-sm-12 col-md-6">
+                <div *ngIf="plant.slikaUPrirodi">
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <!-- <h5>Slika iz prirode:</h5> -->
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <img class="max-height-350 max-width-350 m-3" src="{{ baseUrl }}images/{{plant.slikaUPrirodi}}" (click)="showLightboxSlika(0,'slikaUPrirodi')" [alt]="plant.slikaUPrirodi">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

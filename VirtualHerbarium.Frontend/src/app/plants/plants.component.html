@@ -1,16 +1,22 @@
 <div class="main ml-auto mr-auto">
     <div class="text-right">
-        <a *ngIf="!authService.isAuthenticated()" class="mt-2 mr-2 btn btn-success" [routerLink]="['/login']">Login</a>
-        <a *ngIf="authService.isAuthenticated()" role="button" class="mt-2 mr-2 btn btn-success" [routerLink]="" (click)="authService.logout()">Logout</a>
+        <a *ngIf="!authService.isAuthenticated()" class="mt-2 mr-2 btn btn-outline-secondary" [routerLink]="['/login']">Uloguj se</a>
+        <a *ngIf="authService.isAuthenticated()" role="button" class="mt-2 mr-2 btn btn-outline-secondary" [routerLink]="" (click)="authService.logout()">Izloguj se</a>
     </div>
-
-    <div class="text-center mb-5">
-        <h1>
-          <a [routerLink]="['/plants']">
-            <img src="../../assets/logo/cc9588a8-ce03-4b30-839f-f6ac86414f3b_200x200.png" alt="logo" /></a>
-          Digitalni herbarijum!
-        </h1>
+    <div class="mb-5">
+        <div class="row">
+            <div class="col-sm-12 col-md-5 text-right">
+                <a [routerLink]="['/plants']">
+                    <img src="../../assets/logo/cc9588a8-ce03-4b30-839f-f6ac86414f3b_200x200.png" alt="logo" />
+                </a>
+            </div>
+            <div class="col-sm-12 col-md-7" style="margin-top: 60px">
+                <h2 style="font-family: Castellar;">Digitalni herbarijum</h2>
+                <h6 style="font-family: Castellar;">Univerzitet Crne Gore</h6>
+            </div>
+        </div>
     </div>
 
     <router-outlet></router-outlet>
 </div>
+
