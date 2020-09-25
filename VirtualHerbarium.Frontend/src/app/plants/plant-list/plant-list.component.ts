@@ -15,14 +15,21 @@ export class PlantListComponent implements OnInit {
     plants: Plant[] = [];
     plantFilterParams: PlantFilterParams = new PlantFilterParams();
 
-    public innerWidth: number;
+    innerWidth: number;
+    hiddenForMobile = false;
+    hiddenForTablet = false;
 
     constructor(private plantService: PlantService, public authService: AuthService) { }
 
     ngOnInit() {
-        this.innerWidth = window.innerWidth;
-        console.log(this.innerWidth)
+        this.setScreenWidthSettings();
         this.getAllPlants();
+    }
+
+    private setScreenWidthSettings() {
+        this.innerWidth = window.innerWidth;
+        this.hiddenForMobile = this.innerWidth < 600;
+        this.hiddenForTablet = this.innerWidth < 900;
     }
 
     private getAllPlants() {

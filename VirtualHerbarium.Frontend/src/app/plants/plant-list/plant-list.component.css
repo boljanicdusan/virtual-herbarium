@@ -15,3 +15,23 @@
     max-height: 90px;
     opacity: 0.7;
 }
+
+.h-autor {
+    display: flex;
+    align-items: flex-end;
+}
+
+.h-autor h6 {
+    margin-left: auto;
+}
+
+@media only screen and (max-width: 720px) {
+    .h-autor {
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    .h-autor h6 {
+        margin-right: auto;
+    }
+}

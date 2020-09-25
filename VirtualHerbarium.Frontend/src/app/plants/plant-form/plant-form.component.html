@@ -21,7 +21,7 @@
             <input [(ngModel)]="plant.mjesto" name="mjesto" type="text" class="form-control" id="mjesto">
         </div>
         <div class="form-group">
-            <label for="trivijalni-nazi">Trivijalni naziv</label>
+            <label for="trivijalni-nazi">Narodni naziv</label>
             <input [(ngModel)]="plant.trivijalniNaziv" name="trivijalniNaziv" type="text" class="form-control" id="trivijalni-naziv">
         </div>
         <div class="form-group">
@@ -46,7 +46,7 @@
         </div>
         <div class="form-group">
             <label for="slika-u-prirodi">
-                Slika u prirodi
+                Slika iz prirode
                 <button *ngIf="plant.id && slikaUPrirodi" (click)="removeImage('slikaUPrirodi')" type="button" class="btn btn-danger">Ukloni sliku</button>
             </label>
             <div *ngIf="plant.id && slikaUPrirodi">

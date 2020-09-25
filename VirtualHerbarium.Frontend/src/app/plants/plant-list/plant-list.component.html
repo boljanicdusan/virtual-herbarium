@@ -46,21 +46,21 @@
                 <thead>
                     <tr>
                         <th scope="col">Vrsta</th>
-                        <th scope="col">Porodica</th>
-                        <th scope="col">Red</th>
-                        <th scope="col" *ngIf="innerWidth > 900">Stanište</th>
-                        <th scope="col" *ngIf="innerWidth > 900">Mjesto</th>
-                        <th scope="col" *ngIf="authService.isAuthenticated() && innerWidth > 900">Akcije</th>
+                        <th scope="col" *ngIf="!hiddenForMobile">Porodica</th>
+                        <th scope="col" *ngIf="!hiddenForMobile">Red</th>
+                        <th scope="col" *ngIf="!hiddenForTablet">Stanište</th>
+                        <th scope="col" *ngIf="!hiddenForTablet">Mjesto</th>
+                        <th scope="col" *ngIf="authService.isAuthenticated() && !hiddenForTablet">Akcije</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let plant of plants; index as i">
                         <th scope="row" class="cursor-pointer" [routerLink]="['/plants/details/', plant.id]"><em>{{ plant.vrsta }}</em></th>
-                        <td>{{ plant.porodica }}</td>
-                        <td>{{ plant.red }}</td>
-                        <td *ngIf="innerWidth > 900">{{ plant.staniste }}</td>
-                        <td *ngIf="innerWidth > 900">{{ plant.mjesto }}</td>
-                        <td *ngIf="authService.isAuthenticated() && innerWidth > 900">
+                        <td *ngIf="!hiddenForMobile">{{ plant.porodica }}</td>
+                        <td *ngIf="!hiddenForMobile">{{ plant.red }}</td>
+                        <td *ngIf="!hiddenForTablet">{{ plant.staniste }}</td>
+                        <td *ngIf="!hiddenForTablet">{{ plant.mjesto }}</td>
+                        <td *ngIf="authService.isAuthenticated() && !hiddenForTablet">
                             <a class="mr-2" [routerLink]="['/plants/edit/', plant.id]">Edituj</a>
                             <a class="cursor-pointer" [routerLink]="" (click)="delete(plant.id)">Izbrisi</a>
                         </td>
@@ -77,7 +77,7 @@
         <div class="col-sm-12 col-md-6 ">
             <h6>Admin: Marina Šoškić (marinasoskic97@gmail.com)</h6>
         </div>
-        <div class="col-sm-12 col-md-6 text-right">
+        <div class="col-sm-12 col-md-6 h-autor">
             <h6>Kreator: Dušan Boljanić (boljanicdusan@gmail.com)</h6>
         </div>
     </div>

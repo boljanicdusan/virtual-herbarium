@@ -62,7 +62,7 @@ namespace VirtualHerbarium.Backend.Controllers
             try
             {
                 byte[] bytes = Convert.FromBase64String(input.SlikaBase64);
-                var path = Path.Combine(_env.ContentRootPath, "wwwroot", "Images", input.Slika);
+                var path = Path.Combine(_env.ContentRootPath, "wwwroot", "images", input.Slika);
                 System.IO.File.WriteAllBytes(path, bytes);
             }
             catch (System.Exception)
@@ -73,7 +73,7 @@ namespace VirtualHerbarium.Backend.Controllers
             try
             {
                 byte[] bytes = Convert.FromBase64String(input.SlikaUPrirodiBase64);
-                var path = Path.Combine(_env.ContentRootPath, "wwwroot", "Images", input.SlikaUPrirodi);
+                var path = Path.Combine(_env.ContentRootPath, "wwwroot", "images", input.SlikaUPrirodi);
                 System.IO.File.WriteAllBytes(path, bytes);
             }
             catch (System.Exception)
@@ -105,7 +105,7 @@ namespace VirtualHerbarium.Backend.Controllers
                 try
                 {
                     byte[] bytes = Convert.FromBase64String(input.SlikaBase64);
-                    var path = Path.Combine(_env.ContentRootPath, "wwwroot", "Images", input.Slika);
+                    var path = Path.Combine(_env.ContentRootPath, "wwwroot", "images", input.Slika);
                     System.IO.File.WriteAllBytes(path, bytes);
                 }
                 catch (System.Exception)
@@ -119,7 +119,7 @@ namespace VirtualHerbarium.Backend.Controllers
                 try
                 {
                     byte[] bytes = Convert.FromBase64String(input.SlikaUPrirodiBase64);
-                    var path = Path.Combine(_env.ContentRootPath, "wwwroot", "Images", input.SlikaUPrirodi);
+                    var path = Path.Combine(_env.ContentRootPath, "wwwroot", "images", input.SlikaUPrirodi);
                     System.IO.File.WriteAllBytes(path, bytes);
                 }
                 catch (System.Exception)
@@ -147,6 +147,14 @@ namespace VirtualHerbarium.Backend.Controllers
                 return BadRequest(ModelState);
             }
 
+            // delete images from folder
+            var plant = await _plantService.GetPlantById(id);
+            if (plant != null)
+            {
+                DeleteImage(plant.Slika);
+                DeleteImage(plant.SlikaUPrirodi);
+            }
+
             var result = await _plantService.DeletePlant(id);
 
             if (!result)
@@ -170,17 +178,31 @@ namespace VirtualHerbarium.Backend.Controllers
 
             if (type == "slika")
             {
-                var path = Path.Combine(_env.ContentRootPath, "wwwroot", "Images", plant.Slika);
-                System.IO.File.Delete(path);
+                DeleteImage(plant.Slika);
             }
             if (type == "slikaUPrirodi")
             {
-                var path = Path.Combine(_env.ContentRootPath, "wwwroot", "Images", plant.SlikaUPrirodi);
-                System.IO.File.Delete(path);
+                DeleteImage(plant.SlikaUPrirodi);
             }
 
             var result = await _plantService.DeleteImageForPlant(id, type);
             return Ok(new { Success = result });
+        }
+
+        private void DeleteImage(string image)
+        {
+            if (!string.IsNullOrWhiteSpace(image))
+            {
+                var path = Path.Combine(_env.ContentRootPath, "wwwroot", "images", image);
+                try
+                {
+                    System.IO.File.Delete(path);
+                }
+                catch (System.Exception)
+                {
+                    // 
+                }
+            }
         }
     }
 }

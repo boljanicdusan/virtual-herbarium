@@ -2,18 +2,53 @@
     width: 100%;
     background-color: #ffffff;
     align-items: center;
-    /* margin-top: 50px;
-    margin-bottom: 30px; */
     padding: 15px;
-    /* border-radius: 10px; */
-    /* border-color: green;
-    border-width: 2px; */
-    /* border: 2px solid purple; */
+}
+
+.h-title-img {
+    display: flex;
+    align-items: flex-end;
+}
+
+.h-title-img a {
+    margin-left: auto;
+}
+
+.h-title {
+    margin-top: 60px;
+}
+
+.h-title h2,
+.h-title h6 {
+    font-family: Castellar !important;
 }
 
 @media only screen and (max-width: 750px) {
     .main {
         padding: 5px;
     }
-}
 
+    .h-title-img {
+        display: flex;
+        justify-content: center;
+    }
+
+    .h-title-img a {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .h-title {
+        padding-left: 30px;
+    }
+
+    #login-button {
+        visibility: hidden;
+    }
+
+    .h-title h2,
+    .h-title h6 {
+        font-family: Castellar;
+        src: url('../../assets/fonts/CASTELAR.ttf') format('truetype');
+    }
+}

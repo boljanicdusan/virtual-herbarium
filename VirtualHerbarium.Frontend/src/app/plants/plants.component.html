@@ -1,18 +1,18 @@
 <div class="main ml-auto mr-auto">
     <div class="text-right">
-        <a *ngIf="!authService.isAuthenticated()" class="mt-2 mr-2 btn btn-outline-secondary" [routerLink]="['/login']">Uloguj se</a>
+        <a *ngIf="!authService.isAuthenticated()" class="mt-2 mr-2 btn btn-outline-secondary" id="login-button" [routerLink]="['/login']">Uloguj se</a>
         <a *ngIf="authService.isAuthenticated()" role="button" class="mt-2 mr-2 btn btn-outline-secondary" [routerLink]="" (click)="authService.logout()">Izloguj se</a>
     </div>
     <div class="mb-5">
         <div class="row">
-            <div class="col-sm-12 col-md-5 text-right">
+            <div class="col-sm-12 col-md-5 h-title-img">
                 <a [routerLink]="['/plants']">
                     <img src="../../assets/logo/cc9588a8-ce03-4b30-839f-f6ac86414f3b_200x200.png" alt="logo" />
                 </a>
             </div>
-            <div class="col-sm-12 col-md-7" style="margin-top: 60px">
-                <h2 style="font-family: Castellar;">Digitalni herbarijum</h2>
-                <h6 style="font-family: Castellar;">Univerzitet Crne Gore</h6>
+            <div class="col-sm-12 col-md-7 h-title">
+                <h2>Digitalni herbarijum</h2>
+                <h6>Univerzitet Crne Gore</h6>
             </div>
         </div>
     </div>
