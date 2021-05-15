@@ -29,28 +29,44 @@
             <input [(ngModel)]="plant.sinonim" name="sinonim" type="text" class="form-control" id="sinonim">
         </div>
         <div class="form-group">
-            <label for="opis">Opis</label>
+            <label for="opis">Opis i zanimljivosti</label>
             <textarea [(ngModel)]="plant.opis" name="opis" type="text" class="form-control" id="opis" rows="3"></textarea>
         </div>
         <div class="form-group">
-            <label for="slika">
-                Slika
-                <button *ngIf="plant.id && slika" (click)="removeImage('slika')" type="button" class="btn btn-danger">Ukloni sliku</button>
-            </label>
-
-            <div *ngIf="plant.id && slika">
-                <img class="max-width-350 max-height-350" src="{{ baseUrl }}images/{{slika}}" [alt]="slika" />
-            </div>
-            <input *ngIf="!slika" type="file" class="form-control" id="slika" name="slika" (change)="imageUploaded($event, 'slika')">
-
+            <label for="latitude">Latitude</label>
+            <input [(ngModel)]="plant.latitude" name="latitude" type="number" class="form-control" id="latitude">
         </div>
         <div class="form-group">
-            <label for="slika-u-prirodi">
-                Slika iz prirode
-                <button *ngIf="plant.id && slikaUPrirodi" (click)="removeImage('slikaUPrirodi')" type="button" class="btn btn-danger">Ukloni sliku</button>
+            <label for="longitude">Longitude</label>
+            <input [(ngModel)]="plant.longitude" name="longitude" type="number" class="form-control" id="longitude">
+        </div>
+        <div class="form-group">
+            <label for="slika">
+                Slike
+                <!-- <button *ngIf="plant.id && slika" (click)="removeImage('slika')" type="button" class="btn btn-danger">Ukloni sliku</button> -->
             </label>
-            <div *ngIf="plant.id && slikaUPrirodi">
-                <img class="max-width-350 max-height-350" src="{{ baseUrl }}images/{{slikaUPrirodi}}" [alt]="slikaUPrirodi" />
+
+            <div class="row">
+                <div *ngFor="let item of plant.slike; let i = index" class="col-3">
+                    <button (click)="removeImageLocally(i, 'slika')" type="button" class="btn btn-danger mb-2">Ukloni sliku</button> <br>
+                    <img *ngIf="item.id" class="max-width-350 max-height-350" src="{{ baseUrl }}images/{{ item.slika }}" [alt]="item.slika" />
+                    <p *ngIf="!item.id">{{ item.slika }}</p>
+                </div>
+            </div>
+            <input type="file" class="form-control mt-4" id="slika" name="slika" (change)="imageUploaded($event, 'slika')">
+
+        </div>
+        <div class="form-group mt-5">
+            <label for="slika-u-prirodi">
+                Slike iz prirode
+                <!-- <button *ngIf="plant.id && slikaUPrirodi" (click)="removeImage('slikaUPrirodi')" type="button" class="btn btn-danger">Ukloni sliku</button> -->
+            </label>
+            <div class="row">
+                <div *ngFor="let item of plant.slikeUPrirodi; let i = index;" class="col-3">
+                    <button (click)="removeImageLocally(i, 'slikaUPrirodi')" type="button" class="btn btn-danger mb-2">Ukloni sliku</button> <br>
+                    <img *ngIf="item.id" class="max-width-350 max-height-350" src="{{ baseUrl }}images/{{ item.slika }}" [alt]="item.slika" />
+                    <p *ngIf="!item.id">{{ item.slika }}</p>
+                </div>
             </div>
             <input *ngIf="!slikaUPrirodi" type="file" class="form-control" id="slika-u-prirodi" name="slikaUPrirodi" (change)="imageUploaded($event, 'slikaUPrirodi')">
         </div>

@@ -10,6 +10,8 @@ namespace VirtualHerbarium.Backend.Services
         Task<PlantDto> GetPlantById(int id);
         Task<PlantDto> CreatePlant(CreatePlantDto input);
         Task<PlantDto> UpdatePlant(UpdatePlantDto input);
+        Task CreatePlantImages(List<CreatePlantImageDto> images);
+        Task DeletePlantImages(List<PlantImageDto> images);
         Task<bool> DeletePlant(int id);
         Task<bool> DeleteImageForPlant(int id, string type);
     }

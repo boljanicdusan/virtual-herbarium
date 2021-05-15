@@ -53,7 +53,7 @@ namespace VirtualHerbarium.Backend.Services
 
         public async Task<PlantDto> GetPlantById(int id)
         {
-            var plant = await _context.Plants.FirstOrDefaultAsync(p => p.Id == id);
+            var plant = await _context.Plants.AsNoTracking().Include(p => p.SlikeBiljaka).FirstOrDefaultAsync(p => p.Id == id);
 
             if (plant != null)
             {
@@ -68,6 +68,26 @@ namespace VirtualHerbarium.Backend.Services
             var plant = _mapper.Map<CreatePlantDto, Plant>(input);
             await _context.Plants.AddAsync(plant);
             await _context.SaveChangesAsync();
+
+            var slike = input.Slike.Select(s => new PlantImage
+            {
+                UPrirodi = false,
+                Slika = s.Slika,
+                BiljkaId = plant.Id
+            }).ToList();
+
+            var slikeUPrirodi = input.SlikeUPrirodi.Select(s => new PlantImage
+            {
+                UPrirodi = true,
+                Slika = s.Slika,
+                BiljkaId = plant.Id
+            }).ToList();
+
+            await _context.PlantImages.AddRangeAsync(slike);
+            await _context.PlantImages.AddRangeAsync(slikeUPrirodi);
+
+            await _context.SaveChangesAsync();
+
             return _mapper.Map<Plant, PlantDto>(plant);
         }
 
@@ -83,6 +103,20 @@ namespace VirtualHerbarium.Backend.Services
             }
 
             return null;
+        }
+
+        public async Task CreatePlantImages(List<CreatePlantImageDto> images)
+        {
+            var plantImages = _mapper.Map<List<PlantImage>>(images);
+            await _context.PlantImages.AddRangeAsync(plantImages);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task DeletePlantImages(List<PlantImageDto> images)
+        {
+            var plantImages = _mapper.Map<List<PlantImage>>(images);
+            _context.PlantImages.RemoveRange(plantImages);
+            await _context.SaveChangesAsync();
         }
 
         public async Task<bool> DeletePlant(int id)
@@ -110,11 +144,11 @@ namespace VirtualHerbarium.Backend.Services
 
             if (type == "slika")
             {
-                plant.Slika = null;
+                // plant.Slika = null;
             }
             if (type == "slikaUPrirodi")
             {
-                plant.SlikaUPrirodi = null;
+                // plant.SlikaUPrirodi = null;
             }
 
             _context.Plants.Update(plant);

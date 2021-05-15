@@ -101,7 +101,7 @@
         <div *ngIf="plant.opis">
             <div class="row">
                 <div class="col-4">
-                    <h5>Opis</h5>
+                    <h5>Opis i zanimljivosti:</h5>
                 </div>
                 <div class="col-8">
                     {{ plant.opis }}
@@ -112,37 +112,55 @@
         </div>
 
     </div>
-    <div class="col-sm-12 col-lg-6">
+    <div class="col-sm-12">
         <div class="row">
-            <div class="col-sm-12 col-md-6">
-                <div *ngIf="plant.slika">
-                    <div class="row">
-                        <div class="col-12 text-center">
-                            <!-- <h5>Slika:</h5> -->
-                        </div>
+            <div class="col-sm-12 ">
+                <div class="row">
+                    <div class="col-12 pl-5">
+                        <h5>Slike:</h5>
                     </div>
-                    <div class="row">
-                        <div class="col-12 text-center">
-                            <img class="max-height-350 max-width-350 m-3" src="{{ baseUrl }}images/{{ plant.slika }}" (click)="showLightboxSlika(0,'slika')" [alt]="plant.slika">
-                        </div>
-                        <ng-image-fullscreen-view [images]="imagesObject" [imageIndex]="selectedImageIndex" [show]="showFlag" (close)="closeEventHandler()"></ng-image-fullscreen-view>
+                </div>
+                <div class="row">
+                    <div *ngFor="let item of plant.slike; let i = index" class="col-auto text-center">
+                        <img class="max-height-350 max-width-350 m-3" src="{{ baseUrl }}images/{{ item.slika }}" (click)="showLightboxSlika(i,'slika')" [alt]="item.slika">
                     </div>
+                    <ng-image-fullscreen-view [images]="imagesObject" [imageIndex]="selectedImageIndex" [show]="showFlag" (close)="closeEventHandler()"></ng-image-fullscreen-view>
                 </div>
             </div>
             <div class="col-sm-12 col-md-6">
-                <div *ngIf="plant.slikaUPrirodi">
-                    <div class="row">
-                        <div class="col-12 text-center">
-                            <!-- <h5>Slika iz prirode:</h5> -->
-                        </div>
+                <div class="row">
+                    <div class="col-12 pl-5">
+                        <h5>Slike iz prirode:</h5>
                     </div>
-                    <div class="row">
-                        <div class="col-12 text-center">
-                            <img class="max-height-350 max-width-350 m-3" src="{{ baseUrl }}images/{{plant.slikaUPrirodi}}" (click)="showLightboxSlika(0,'slikaUPrirodi')" [alt]="plant.slikaUPrirodi">
-                        </div>
+                </div>
+                <div class="row">
+                    <div *ngFor="let item of plant.slikeUPrirodi; let i = index" class="col-auto text-center">
+                        <img class="max-height-350 max-width-350 m-3" src="{{ baseUrl }}images/{{ item.slika }}" (click)="showLightboxSlika(i,'slikaUPrirodi')" [alt]="item.slika">
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+</div>
+
+
+<div class="row mt-3">
+    <div class="col-12">
+        <google-map
+            height="600px"
+            width="100%"
+            [zoom]="zoom"
+            [center]="center"
+            [options]="options">
+            <map-marker
+                #markerElem="mapMarker"
+                [position]="marker"
+                [title]="plant?.vrsta"
+                (mapClick)="openInfo(markerElem)"
+            >
+            </map-marker>
+            <map-info-window #infoWindow>{{ plant?.vrsta }}</map-info-window>
+        </google-map>
+
     </div>
 </div>

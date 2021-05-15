@@ -3,6 +3,7 @@ import { PlantService } from './../plant.service';
 import { Component, OnInit } from '@angular/core';
 import { Plant } from '../plant.model';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PlantImage } from '../plant-image.model';
 
 @Component({
     selector: 'app-plant-form',
@@ -47,6 +48,7 @@ export class PlantFormComponent implements OnInit {
                 .subscribe(
                     response => this.router.navigateByUrl('/plants'),
                     (error) => {
+                        console.log('error', error)
                         if (error.status == 401) {
                             this.router.navigateByUrl('/plants');
                         } else {
@@ -81,16 +83,35 @@ export class PlantFormComponent implements OnInit {
                 `data:${this.uploadedFile.type};base64,`,
                 ''
             );
+
+            const plantImage: PlantImage = new PlantImage();
+
+            plantImage.slika = this.uploadedFile.name;
+            plantImage.slikaBase64 = slikaBase64;
+            plantImage.biljkaId = this.plant.id;
+
             if (type === 'slika') {
-                this.plant.slikaBase64 = slikaBase64;
-                this.plant.slika = this.uploadedFile.name;
+                plantImage.uPrirodi = false;
+                this.plant.slike.push(plantImage);
+                // this.plant.slikaBase64 = slikaBase64;
+                // this.plant.slika = this.uploadedFile.name;
             } else if (type === 'slikaUPrirodi') {
-                this.plant.slikaUPrirodiBase64 = slikaBase64;
-                this.plant.slikaUPrirodi = this.uploadedFile.name;
+                // this.plant.slikaUPrirodiBase64 = slikaBase64;
+                // this.plant.slikaUPrirodi = this.uploadedFile.name;
+                plantImage.uPrirodi = true;
+                this.plant.slikeUPrirodi.push(plantImage);
             }
         };
 
         myReader.readAsDataURL(this.uploadedFile);
+    }
+
+    removeImageLocally(index: number, type: 'slika' | 'slikaUPrirodi') {
+        if (type === 'slika') {
+            this.plant.slike.splice(index, 1);
+        } else {
+            this.plant.slikeUPrirodi.splice(index, 1);
+        }
     }
 
     removeImage(type: 'slika' | 'slikaUPrirodi') {
@@ -105,6 +126,6 @@ export class PlantFormComponent implements OnInit {
                     this.plant.slikaUPrirodi = null;
                     this.plant.slikaUPrirodiBase64 = null;
                 }
-            })
+            });
     }
 }

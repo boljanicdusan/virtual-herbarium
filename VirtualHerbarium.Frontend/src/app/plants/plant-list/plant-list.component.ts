@@ -3,7 +3,7 @@ import { PlantService } from './../plant.service';
 import { Component, OnInit } from '@angular/core';
 import { Plant } from '../plant.model';
 import { PlantFilter as PlantFilterParams } from './plant-filter-params.model';
-
+import { finalize } from 'rxjs/operators';
 @Component({
     selector: 'app-plant-list',
     templateUrl: 'plant-list.component.html',
@@ -19,6 +19,8 @@ export class PlantListComponent implements OnInit {
     hiddenForMobile = false;
     hiddenForTablet = false;
 
+    isLoading = false;
+
     constructor(private plantService: PlantService, public authService: AuthService) { }
 
     ngOnInit() {
@@ -33,7 +35,9 @@ export class PlantListComponent implements OnInit {
     }
 
     private getAllPlants() {
+        this.isLoading = true;
         this.plantService.getAllPlants(this.plantFilterParams)
+            .pipe(finalize(() => this.isLoading = false))
             .subscribe(response => this.plants = response);
     }
 
@@ -49,3 +53,4 @@ export class PlantListComponent implements OnInit {
         }
     }
 }
+

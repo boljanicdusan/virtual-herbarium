@@ -10,6 +10,7 @@ namespace VirtualHerbarium.Backend.Entities
         }
 
         public DbSet<Plant> Plants { get; set; }
+        public DbSet<PlantImage> PlantImages { get; set; }
         public DbSet<User> Users { get; set; }
     }
 }

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VirtualHerbarium.Backend.Entities;
 
 namespace VirtualHerbarium.Backend.Migrations
 {
     [DbContext(typeof(VirtualHerbariumDbContext))]
-    partial class VirtualHerbariumDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201012190731_Added_Lat_And_Long")]
+    partial class Added_Lat_And_Long
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -67,29 +69,6 @@ namespace VirtualHerbarium.Backend.Migrations
                     b.ToTable("Biljke");
                 });
 
-            modelBuilder.Entity("VirtualHerbarium.Backend.Entities.PlantImage", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("BiljkaId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Slika")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("UPrirodi")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BiljkaId");
-
-                    b.ToTable("SlikeBiljaka");
-                });
-
             modelBuilder.Entity("VirtualHerbarium.Backend.Entities.User", b =>
                 {
                     b.Property<int>("Id")
@@ -108,15 +87,6 @@ namespace VirtualHerbarium.Backend.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("VirtualHerbarium.Backend.Entities.PlantImage", b =>
-                {
-                    b.HasOne("VirtualHerbarium.Backend.Entities.Plant", "Biljka")
-                        .WithMany()
-                        .HasForeignKey("BiljkaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
