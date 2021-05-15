@@ -48,7 +48,7 @@
 
             <div class="row">
                 <div *ngFor="let item of plant.slike; let i = index" class="col-3">
-                    <button (click)="removeImageLocally(i, 'slika')" type="button" class="btn btn-danger mb-2">Ukloni sliku</button> <br>
+                    <button (click)="removeImage(i, 'slika')" type="button" class="btn btn-danger mb-2">Ukloni sliku</button> <br>
                     <img *ngIf="item.id" class="max-width-350 max-height-350" src="{{ baseUrl }}images/{{ item.slika }}" [alt]="item.slika" />
                     <p *ngIf="!item.id">{{ item.slika }}</p>
                 </div>
@@ -63,12 +63,12 @@
             </label>
             <div class="row">
                 <div *ngFor="let item of plant.slikeUPrirodi; let i = index;" class="col-3">
-                    <button (click)="removeImageLocally(i, 'slikaUPrirodi')" type="button" class="btn btn-danger mb-2">Ukloni sliku</button> <br>
+                    <button (click)="removeImage(i, 'slikaUPrirodi')" type="button" class="btn btn-danger mb-2">Ukloni sliku</button> <br>
                     <img *ngIf="item.id" class="max-width-350 max-height-350" src="{{ baseUrl }}images/{{ item.slika }}" [alt]="item.slika" />
                     <p *ngIf="!item.id">{{ item.slika }}</p>
                 </div>
             </div>
-            <input *ngIf="!slikaUPrirodi" type="file" class="form-control" id="slika-u-prirodi" name="slikaUPrirodi" (change)="imageUploaded($event, 'slikaUPrirodi')">
+            <input type="file" class="form-control" id="slika-u-prirodi" name="slikaUPrirodi" (change)="imageUploaded($event, 'slikaUPrirodi')">
         </div>
         <button type="submit" class="btn btn-success">Sačuvaj</button>
     </form>

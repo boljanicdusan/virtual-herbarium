@@ -16,9 +16,6 @@ export class PlantFormComponent implements OnInit {
 
     uploadedFile: File;
 
-    slika: string;
-    slikaUPrirodi: string;
-
     baseUrl = environment.baseUrl;
 
     constructor(
@@ -35,8 +32,6 @@ export class PlantFormComponent implements OnInit {
                     this.plantService.getPlantById(id)
                         .subscribe(response => {
                             this.plant = response;
-                            this.slika = this.plant.slika;
-                            this.slikaUPrirodi = this.plant.slikaUPrirodi;
                         });
                 }
             });
@@ -106,26 +101,24 @@ export class PlantFormComponent implements OnInit {
         myReader.readAsDataURL(this.uploadedFile);
     }
 
-    removeImageLocally(index: number, type: 'slika' | 'slikaUPrirodi') {
+    removeImage(index:number, type: 'slika' | 'slikaUPrirodi') {
+        // this.plantService.deleteImage(this.plant.id, type)
+        //     .subscribe(response => {
+        //         if (type === 'slika') {
+        //             this.slika = null;
+        //             this.plant.slika = null;
+        //             this.plant.slikaBase64 = null;
+        //         } else if (type === 'slikaUPrirodi') {
+        //             this.slikaUPrirodi = null;
+        //             this.plant.slikaUPrirodi = null;
+        //             this.plant.slikaUPrirodiBase64 = null;
+        //         }
+        //     });
+
         if (type === 'slika') {
             this.plant.slike.splice(index, 1);
         } else {
             this.plant.slikeUPrirodi.splice(index, 1);
         }
-    }
-
-    removeImage(type: 'slika' | 'slikaUPrirodi') {
-        this.plantService.deleteImage(this.plant.id, type)
-            .subscribe(response => {
-                if (type === 'slika') {
-                    this.slika = null;
-                    this.plant.slika = null;
-                    this.plant.slikaBase64 = null;
-                } else if (type === 'slikaUPrirodi') {
-                    this.slikaUPrirodi = null;
-                    this.plant.slikaUPrirodi = null;
-                    this.plant.slikaUPrirodiBase64 = null;
-                }
-            });
     }
 }
