@@ -55,7 +55,7 @@ namespace VirtualHerbarium.Backend.Controllers
             var token = new JwtSecurityToken(_config["Jwt:Issuer"],
                 _config["Jwt:Issuer"],
                 null,
-                expires: DateTime.Now.AddMinutes(120),
+                expires: DateTime.Now.AddHours(24),
                 signingCredentials: credentials);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
