@@ -49,7 +49,17 @@ export class PlantListComponent implements OnInit {
         const confirm = window.confirm('Da li ste sigurni da zelite da izbrisete ovu biljku?');
         if (confirm) {
             this.plantService.delete(id)
-                .subscribe(() => this.getAllPlants());
+                .subscribe(
+                    () => this.getAllPlants(),
+                    (error) => {
+                        if (error.status == 401) {
+                            alert('Vasa sesija je istekla');
+                            this.authService.logout();
+                        } else {
+                            alert(error.message);
+                        }
+                    }
+                );
         }
     }
 }

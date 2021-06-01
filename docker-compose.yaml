@@ -1,0 +1,24 @@
+version: "3"
+services:
+  digitalniherbarijum-frontend:
+    build: "./VirtualHerbarium.Frontend"
+    container_name: "digitalniherbarijum-frontend"
+    restart: always
+    ports:
+      - 8009:80
+    networks:
+      - digitalniherbarijum_network
+  digitalniherbarijum-backend:
+    build: "./VirtualHerbarium.Backend"
+    ports:
+      - 8010:80
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+    container_name: "digitalniherbarijum-backend"
+    restart: always
+    networks:
+      - digitalniherbarijum_network
+
+networks:
+  digitalniherbarijum_network:
+    external: false

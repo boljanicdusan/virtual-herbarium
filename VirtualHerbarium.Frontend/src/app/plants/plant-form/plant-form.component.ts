@@ -1,3 +1,4 @@
+import { AuthService } from './../../account/auth.service';
 import { environment } from './../../../environments/environment';
 import { PlantService } from './../plant.service';
 import { Component, OnInit } from '@angular/core';
@@ -20,6 +21,7 @@ export class PlantFormComponent implements OnInit {
 
     constructor(
         private plantService: PlantService,
+        private authService: AuthService,
         private activatedRoute: ActivatedRoute,
         private router: Router
     ) { }
@@ -43,9 +45,9 @@ export class PlantFormComponent implements OnInit {
                 .subscribe(
                     response => this.router.navigateByUrl('/plants'),
                     (error) => {
-                        console.log('error', error)
                         if (error.status == 401) {
-                            this.router.navigateByUrl('/plants');
+                            alert('Vasa sesija je istekla');
+                            this.authService.logout();
                         } else {
                             alert(error.message);
                         }
@@ -57,8 +59,8 @@ export class PlantFormComponent implements OnInit {
                 response => this.router.navigateByUrl('/plants'),
                 (error) => {
                     if (error.status == 401) {
-                        alert('You are not logged in')
-                        this.router.navigateByUrl('/plants');
+                        alert('Vasa sesija je istekla');
+                        this.authService.logout();
                     } else {
                         alert(error.message);
                     }
@@ -88,11 +90,7 @@ export class PlantFormComponent implements OnInit {
             if (type === 'slika') {
                 plantImage.uPrirodi = false;
                 this.plant.slike.push(plantImage);
-                // this.plant.slikaBase64 = slikaBase64;
-                // this.plant.slika = this.uploadedFile.name;
             } else if (type === 'slikaUPrirodi') {
-                // this.plant.slikaUPrirodiBase64 = slikaBase64;
-                // this.plant.slikaUPrirodi = this.uploadedFile.name;
                 plantImage.uPrirodi = true;
                 this.plant.slikeUPrirodi.push(plantImage);
             }
@@ -101,20 +99,7 @@ export class PlantFormComponent implements OnInit {
         myReader.readAsDataURL(this.uploadedFile);
     }
 
-    removeImage(index:number, type: 'slika' | 'slikaUPrirodi') {
-        // this.plantService.deleteImage(this.plant.id, type)
-        //     .subscribe(response => {
-        //         if (type === 'slika') {
-        //             this.slika = null;
-        //             this.plant.slika = null;
-        //             this.plant.slikaBase64 = null;
-        //         } else if (type === 'slikaUPrirodi') {
-        //             this.slikaUPrirodi = null;
-        //             this.plant.slikaUPrirodi = null;
-        //             this.plant.slikaUPrirodiBase64 = null;
-        //         }
-        //     });
-
+    removeImage(index: number, type: 'slika' | 'slikaUPrirodi') {
         if (type === 'slika') {
             this.plant.slike.splice(index, 1);
         } else {
