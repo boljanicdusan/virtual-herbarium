@@ -15,12 +15,15 @@ namespace VirtualHerbarium.Backend.Mapping
             CreateMap<Plant, PlantDto>()
                 .ForMember(dest => dest.Slike, opt => opt.MapFrom((src, d, role, context) => src.SlikeBiljaka.Where(s => !s.UPrirodi).Select(s => context.Mapper.Map<PlantImageDto>(s)).ToList()))
                 .ForMember(dest => dest.SlikeUPrirodi, opt => opt.MapFrom((src, d, role, context) => src.SlikeBiljaka.Where(s => s.UPrirodi).Select(s => context.Mapper.Map<PlantImageDto>(s)).ToList()));
+            CreateMap<PlantLocation, PlantLocationDto>();
 
             // DTO to Model
             CreateMap<CreatePlantDto, Plant>();
             CreateMap<UpdatePlantDto, Plant>();
             CreateMap<CreatePlantImageDto, PlantImage>();
             CreateMap<PlantImageDto, PlantImage>();
+            CreateMap<PlantLocationDto, PlantLocation>();
+            CreateMap<CreatePlantLocationDto, PlantLocation>();
         }
     }
 }

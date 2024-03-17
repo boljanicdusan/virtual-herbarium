@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../account/auth.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
     selector: 'app-plants',
@@ -8,6 +9,8 @@ import { AuthService } from '../account/auth.service';
 })
 
 export class PlantsComponent implements OnInit {
+
+    baseUrl = environment.baseUrl;
 
     constructor(public authService: AuthService) { }
 

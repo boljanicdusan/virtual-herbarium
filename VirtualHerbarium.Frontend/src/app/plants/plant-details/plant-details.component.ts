@@ -23,9 +23,10 @@ export class PlantDetailsComponent implements OnInit {
     baseUrl = environment.baseUrl;
     imagesObject = [];
 
-    zoom = 15;
+    zoom = 9;
     center: google.maps.LatLngLiteral;
-    marker: google.maps.LatLngLiteral;
+    // marker: google.maps.LatLngLiteral;
+    markers: google.maps.LatLngLiteral[] = [];
     options: google.maps.MapOptions = {
         // mapTypeId: 'satellite',
         mapTypeId: 'hybrid',
@@ -55,17 +56,21 @@ export class PlantDetailsComponent implements OnInit {
                     this.plantService.getPlantById(id)
                         .subscribe(response => {
                             this.plant = response;
-                            if (this.plant.latitude && this.plant.longitude) {
-                                this.center = this.marker = {
-                                    lat: this.plant.latitude,
-                                    lng: this.plant.longitude
-                                };
-                            } else {
-                                this.center = {
-                                    lat: 42.4304,
-                                    lng: 19.2594
+
+                            this.plant.lokacijeBiljaka.forEach(l => {
+                                if (l.latitude && l.longitude) {
+                                    const marker = {
+                                        lat: l.latitude,
+                                        lng: l.longitude
+                                    };
+                                    this.markers.push(marker);
                                 }
-                            }
+                            });
+
+                            this.center = {
+                                lat: 42.8098673841108,
+                                lng: 19.22362986740283
+                            };
                         });
                 }
             });

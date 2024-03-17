@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VirtualHerbarium.Backend.Entities;
 
 namespace VirtualHerbarium.Backend.Migrations
 {
     [DbContext(typeof(VirtualHerbariumDbContext))]
-    partial class VirtualHerbariumDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240317181549_Seed_Plant_Location_Data")]
+    partial class Seed_Plant_Location_Data
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

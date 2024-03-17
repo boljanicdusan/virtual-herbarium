@@ -1,4 +1,6 @@
 import { PlantImage } from './plant-image.model';
+import { PlantLocation } from './plant-location.model';
+
 export class Plant {
     id: number;
     vrsta: string;
@@ -17,6 +19,12 @@ export class Plant {
     slike: PlantImage[] = [];
     slikeUPrirodi: PlantImage[] = [];
 
+    lokacijeBiljaka: PlantLocation[] = [];
+
     latitude: number;
     longitude: number;
+
+    constructor() {
+        this.lokacijeBiljaka.push(new PlantLocation());
+    }
 }

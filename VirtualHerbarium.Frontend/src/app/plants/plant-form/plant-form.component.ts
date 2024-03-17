@@ -5,10 +5,12 @@ import { Component, OnInit } from '@angular/core';
 import { Plant } from '../plant.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PlantImage } from '../plant-image.model';
+import { PlantLocation } from '../plant-location.model';
 
 @Component({
     selector: 'app-plant-form',
-    templateUrl: 'plant-form.component.html'
+    templateUrl: 'plant-form.component.html',
+    styleUrls: ['./plant-form.component.css']
 })
 
 export class PlantFormComponent implements OnInit {
@@ -105,5 +107,13 @@ export class PlantFormComponent implements OnInit {
         } else {
             this.plant.slikeUPrirodi.splice(index, 1);
         }
+    }
+
+    addLocation() {
+        this.plant.lokacijeBiljaka.push(new PlantLocation());
+    }
+
+    removeLocation(index: number) {
+        this.plant.lokacijeBiljaka.splice(index, 1);
     }
 }

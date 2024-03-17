@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using VirtualHerbarium.Backend.DTOs;
 using VirtualHerbarium.Backend.Entities;
@@ -11,10 +12,13 @@ namespace VirtualHerbarium.Backend.Services
     public class PlantService : IPlantService
     {
         private readonly VirtualHerbariumDbContext _context;
+        private readonly IImageService _imageService;
         private readonly IMapper _mapper;
-        public PlantService(VirtualHerbariumDbContext context, IMapper mapper)
+
+        public PlantService(VirtualHerbariumDbContext context, IImageService imageService, IMapper mapper)
         {
             _context = context;
+            _imageService = imageService;
             _mapper = mapper;
         }
 
@@ -39,12 +43,12 @@ namespace VirtualHerbarium.Backend.Services
 
             if (!string.IsNullOrWhiteSpace(staniste))
             {
-                query = query.Where(p => p.Staniste.Contains(staniste));
+                query = query.Where(p => p.LokacijeBiljaka.Any(lb => lb.Staniste.Contains(staniste)));
             }
 
             if (!string.IsNullOrWhiteSpace(mjesto))
             {
-                query = query.Where(p => p.Mjesto.Contains(mjesto));
+                query = query.Where(p => p.LokacijeBiljaka.Any(lb => lb.Mjesto.Contains(mjesto)));
             }
 
             var plants = await query.OrderBy(b => b.Vrsta).ToListAsync();
@@ -53,7 +57,11 @@ namespace VirtualHerbarium.Backend.Services
 
         public async Task<PlantDto> GetPlantById(int id)
         {
-            var plant = await _context.Plants.AsNoTracking().Include(p => p.SlikeBiljaka).FirstOrDefaultAsync(p => p.Id == id);
+            var plant = await _context.Plants
+                .Include(p => p.SlikeBiljaka)
+                .Include(p => p.LokacijeBiljaka)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(p => p.Id == id);
 
             if (plant != null)
             {
@@ -66,74 +74,64 @@ namespace VirtualHerbarium.Backend.Services
         public async Task<PlantDto> CreatePlant(CreatePlantDto input)
         {
             var plant = _mapper.Map<CreatePlantDto, Plant>(input);
+
+            var slike = input.Slike.Select(s => new PlantImage(s.Slika, false)).ToList();
+            var slikeUPrirodi = input.SlikeUPrirodi.Select(s => new PlantImage(s.Slika, true)).ToList();
+
+            plant.SlikeBiljaka.AddRange(slike.Concat(slikeUPrirodi));
+
             await _context.Plants.AddAsync(plant);
             await _context.SaveChangesAsync();
 
-            var slike = input.Slike.Select(s => new PlantImage
+            try
             {
-                UPrirodi = false,
-                Slika = s.Slika,
-                BiljkaId = plant.Id
-            }).ToList();
-
-            var slikeUPrirodi = input.SlikeUPrirodi.Select(s => new PlantImage
+                _imageService.SaveImages(input.Slike);
+                _imageService.SaveImages(input.SlikeUPrirodi);
+            }
+            catch (System.Exception)
             {
-                UPrirodi = true,
-                Slika = s.Slika,
-                BiljkaId = plant.Id
-            }).ToList();
-
-            await _context.PlantImages.AddRangeAsync(slike);
-            await _context.PlantImages.AddRangeAsync(slikeUPrirodi);
-
-            await _context.SaveChangesAsync();
+                // 
+            }
 
             return _mapper.Map<Plant, PlantDto>(plant);
         }
 
         public async Task<PlantDto> UpdatePlant(UpdatePlantDto input)
         {
-            var plant = await _context.Plants.FirstOrDefaultAsync(p => p.Id == input.Id);
+            var plant = await _context.Plants
+                .Include(p => p.SlikeBiljaka)
+                .Include(p => p.LokacijeBiljaka)
+                .FirstOrDefaultAsync(p => p.Id == input.Id);
 
-            if (plant != null)
+            if (plant == null)
             {
-                _mapper.Map<UpdatePlantDto, Plant>(input, plant);
-                await _context.SaveChangesAsync();
-                return _mapper.Map<Plant, PlantDto>(plant);
+                return null;
             }
 
-            return null;
-        }
+            _mapper.Map(input, plant);
 
-        public async Task CreatePlantImages(List<CreatePlantImageDto> images)
-        {
-            var plantImages = _mapper.Map<List<PlantImage>>(images);
-            await _context.PlantImages.AddRangeAsync(plantImages);
-            await _context.SaveChangesAsync();
-        }
+            var locationsToAdd = input.LokacijeBiljaka.Where(l => !plant.LokacijeBiljaka.Any(lb => lb.Id == l.Id)).ToList();
+            var locationsToRemove = plant.LokacijeBiljaka.Where(lb => !input.LokacijeBiljaka.Any(l => l.Id == lb.Id)).ToList();
 
-        public async Task DeletePlantImages(List<PlantImageDto> images)
-        {
-            var plantImages = _mapper.Map<List<PlantImage>>(images);
-            _context.PlantImages.RemoveRange(plantImages);
+            await CreatePlantLocations(locationsToAdd);
+            await DeletePlantLocations(locationsToRemove);
+
+            var inputSlike = input.Slike.Concat(input.SlikeUPrirodi);
+            var slikeToAdd = input.Slike.Where(s => !plant.SlikeBiljaka.Any(sb => sb.Slika == s.Slika)).ToList();
+            var slikeToRemove = plant.SlikeBiljaka.Where(sb => !inputSlike.Any(s => s.Slika == sb.Slika)).ToList();
+
+            await CreatePlantImages(slikeToAdd);
+            await DeletePlantImages(slikeToRemove);
+
             await _context.SaveChangesAsync();
+
+            _imageService.SaveImages(slikeToAdd);
+            _imageService.DeleteImages(slikeToRemove);
+
+            return _mapper.Map<PlantDto>(plant);
         }
 
         public async Task<bool> DeletePlant(int id)
-        {
-            var plant = await _context.Plants.FirstOrDefaultAsync(p => p.Id == id);
-
-            if (plant != null)
-            {
-                _context.Plants.Remove(plant);
-                await _context.SaveChangesAsync();
-                return true;
-            }
-
-            return false;
-        }
-
-        public async Task<bool> DeleteImageForPlant(int id, string type)
         {
             var plant = await _context.Plants.FirstOrDefaultAsync(p => p.Id == id);
 
@@ -142,19 +140,34 @@ namespace VirtualHerbarium.Backend.Services
                 return false;
             }
 
-            if (type == "slika")
-            {
-                // plant.Slika = null;
-            }
-            if (type == "slikaUPrirodi")
-            {
-                // plant.SlikaUPrirodi = null;
-            }
-
-            _context.Plants.Update(plant);
+            _context.Plants.Remove(plant);
             await _context.SaveChangesAsync();
 
+            _imageService.DeleteImages(plant.SlikeBiljaka);
+
             return true;
+        }
+
+        private async Task CreatePlantImages(List<CreatePlantImageDto> images)
+        {
+            var plantImages = _mapper.Map<List<PlantImage>>(images);
+            await _context.PlantImages.AddRangeAsync(plantImages);
+        }
+
+        private async Task DeletePlantImages(List<PlantImage> plantImages)
+        {
+            _context.PlantImages.RemoveRange(plantImages);
+        }
+
+        private async Task CreatePlantLocations(List<CreatePlantLocationDto> locations)
+        {
+            var plantLocations = _mapper.Map<List<PlantLocation>>(locations);
+            await _context.PlantLocations.AddRangeAsync(plantLocations);
+        }
+
+        private async Task DeletePlantLocations(List<PlantLocation> plantLocations)
+        {
+            _context.RemoveRange(plantLocations);
         }
     }
 }

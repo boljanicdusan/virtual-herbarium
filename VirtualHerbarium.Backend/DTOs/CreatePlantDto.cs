@@ -19,6 +19,8 @@ namespace VirtualHerbarium.Backend.DTOs
 
         public List<CreatePlantImageDto> Slike { get; set; }
         public List<CreatePlantImageDto> SlikeUPrirodi { get; set; }
+        public List<CreatePlantLocationDto> LokacijeBiljaka { get; set; }
+
 
         public double? Latitude { get; set; }
         public double? Longitude { get; set; }

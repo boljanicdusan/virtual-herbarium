@@ -1,7 +1,12 @@
 <div class="main ml-auto mr-auto">
-    <div class="text-right">
-        <a *ngIf="!authService.isAuthenticated()" class="mt-2 mr-2 btn btn-outline-secondary" id="login-button" [routerLink]="['/login']">Uloguj se</a>
-        <a *ngIf="authService.isAuthenticated()" role="button" class="mt-2 mr-2 btn btn-outline-secondary" [routerLink]="" (click)="authService.logout()">Izloguj se</a>
+    <div class="row">
+        <div class="col-sm-6">
+            <a class="mt-2 ml-2 btn btn-outline-secondary" id="" href="{{baseUrl}}/files/Posterzadanenauke.pdf" target="_blank">Uputstva za izradu herbarijuma</a>
+        </div>
+        <div class="col-sm-6 text-right">
+            <a *ngIf="!authService.isAuthenticated()" class="mt-2 mr-2 btn btn-outline-secondary" id="login-button" [routerLink]="['/login']">Uloguj se</a>
+            <a *ngIf="authService.isAuthenticated()" role="button" class="mt-2 mr-2 btn btn-outline-secondary" [routerLink]="" (click)="authService.logout()">Izloguj se</a>
+        </div>
     </div>
     <div class="mb-5">
         <div class="row">

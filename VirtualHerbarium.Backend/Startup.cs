@@ -39,6 +39,7 @@ namespace VirtualHerbarium.Backend
 
             services.AddScoped<IPlantService, PlantService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IImageService, ImageService>();
             
             services.AddDbContext<VirtualHerbariumDbContext>(builder => builder.UseSqlServer(Configuration.GetConnectionString("Default")));
             services.AddSwaggerGen(options => options.SwaggerDoc("v1", new OpenApiInfo { Title = "Virtual Herbarium", Version = "v1" }));

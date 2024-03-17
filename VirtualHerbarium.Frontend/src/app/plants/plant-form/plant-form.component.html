@@ -13,14 +13,6 @@
             <input [(ngModel)]="plant.red" name="red" type="text" class="form-control" id="red">
         </div>
         <div class="form-group">
-            <label for="staniste">Stanište</label>
-            <input [(ngModel)]="plant.staniste" name="staniste" type="text" class="form-control" id="staniste">
-        </div>
-        <div class="form-group">
-            <label for="mjesto">Mjesto</label>
-            <input [(ngModel)]="plant.mjesto" name="mjesto" type="text" class="form-control" id="mjesto">
-        </div>
-        <div class="form-group">
             <label for="trivijalni-nazi">Narodni naziv</label>
             <input [(ngModel)]="plant.trivijalniNaziv" name="trivijalniNaziv" type="text" class="form-control" id="trivijalni-naziv">
         </div>
@@ -32,14 +24,37 @@
             <label for="opis">Opis i zanimljivosti</label>
             <textarea [(ngModel)]="plant.opis" name="opis" type="text" class="form-control" id="opis" rows="3"></textarea>
         </div>
-        <div class="form-group">
-            <label for="latitude">Latitude</label>
-            <input [(ngModel)]="plant.latitude" name="latitude" type="number" class="form-control" id="latitude">
+
+
+        <div class="plant-location" *ngFor="let location of plant.lokacijeBiljaka; let i = index;">
+            <div class="row">
+                <div class="col-sm-6"><h5>Lokacija {{ i + 1 }}</h5></div>
+                <div class="col-sm-6 text-right">
+                    <button (click)="removeLocation(i)" type="button" class="btn btn-danger ">Ukloni lokaciju</button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="staniste">Stanište</label>
+                <input [(ngModel)]="location.staniste" [name]="'staniste' + i" type="text" class="form-control" [id]="'staniste' + i">
+            </div>
+            <div class="form-group">
+                <label for="mjesto">Mjesto</label>
+                <input [(ngModel)]="location.mjesto" [name]="'mjesto' + i" type="text" class="form-control" [id]="'mjesto' + i">
+            </div>
+            <div class="form-group">
+                <label for="latitude">Latitude</label>
+                <input [(ngModel)]="location.latitude" [name]="'latitude' + i" type="number" class="form-control" [id]="'latitude' + i">
+            </div>
+            <div class="form-group">
+                <label for="longitude">Longitude</label>
+                <input [(ngModel)]="location.longitude" [name]="'longitude' + i" type="number" class="form-control" [id]="'longitude' + i">
+            </div>
         </div>
-        <div class="form-group">
-            <label for="longitude">Longitude</label>
-            <input [(ngModel)]="plant.longitude" name="longitude" type="number" class="form-control" id="longitude">
-        </div>
+
+        <button (click)="addLocation()" type="button" class="btn btn-success mb-2">Dodaj još lokacija</button>
+
+
         <div class="form-group">
             <label for="slika">
                 Slike

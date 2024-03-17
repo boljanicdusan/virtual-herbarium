@@ -24,6 +24,7 @@ namespace VirtualHerbarium.Backend.Entities
         // public string SlikaUPrirodi { get; set; }
 
         public List<PlantImage> SlikeBiljaka { get; set; }
+        public List<PlantLocation> LokacijeBiljaka { get; set; }
 
         public double? Latitude { get; set; }
         public double? Longitude { get; set; }
