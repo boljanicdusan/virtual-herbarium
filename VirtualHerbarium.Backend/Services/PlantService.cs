@@ -117,7 +117,7 @@ namespace VirtualHerbarium.Backend.Services
             await DeletePlantLocations(locationsToRemove);
 
             var inputSlike = input.Slike.Concat(input.SlikeUPrirodi);
-            var slikeToAdd = input.Slike.Where(s => !plant.SlikeBiljaka.Any(sb => sb.Slika == s.Slika)).ToList();
+            var slikeToAdd = inputSlike.Where(s => !plant.SlikeBiljaka.Any(sb => sb.Slika == s.Slika)).ToList();
             var slikeToRemove = plant.SlikeBiljaka.Where(sb => !inputSlike.Any(s => s.Slika == sb.Slika)).ToList();
 
             await CreatePlantImages(slikeToAdd);
