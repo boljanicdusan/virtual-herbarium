@@ -12,7 +12,22 @@
     max-height: 350px;
 }
 
-.btn.btn-success {
-    background-color: #56b52a !important;
+.max-width-200 {
+    max-width: 200px;
+}
 
+.max-height-200 {
+    max-height: 200px;
+}
+
+.max-width-100 {
+    max-width: 200px;
+}
+
+.max-height-100 {
+    max-height: 200px;
+}
+
+.btn.btn-success {
+    background-color: #4f6228 !important;
 }

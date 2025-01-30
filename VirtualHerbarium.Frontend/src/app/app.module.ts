@@ -15,6 +15,13 @@ import { GoogleMapsModule } from '@angular/google-maps'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { PageHeaderComponent } from './page-header/page-header.component';
+import { AboutUsComponent } from './about-us/about-us.component';
+import { MainComponent } from './main/main.component';
+import { DisableRightClickDirective } from './directives/disable-right-click.directive';
+import { DisableDragDirective } from './directives/disable-drag.directive';
+import { CarouselComponent } from './carousel/carousel.component';
+import { DisableLongPressDirective } from './directives/disable-long-press.directive';
 
 @NgModule({
   declarations: [
@@ -23,7 +30,14 @@ import { AppComponent } from './app.component';
     PlantListComponent,
     PlantFormComponent,
     PlantDetailsComponent,
-    LoginComponent
+    LoginComponent,
+    PageHeaderComponent,
+    AboutUsComponent,
+    MainComponent,
+    CarouselComponent,
+    DisableRightClickDirective,
+    DisableDragDirective,
+    DisableLongPressDirective
   ],
   imports: [
     BrowserModule,
@@ -31,7 +45,7 @@ import { AppComponent } from './app.component';
     FormsModule,
     HttpClientModule,
     NgImageFullscreenViewModule,
-    GoogleMapsModule
+    GoogleMapsModule,
   ],
   providers: [PlantService, AuthService, AuthGuardService],
   bootstrap: [AppComponent]

@@ -1,0 +1,82 @@
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #4f6228; /* Green color */
+    padding: 10px 20px;
+    color: white;
+    height: 80px;
+}
+
+.header-left, .header-right {
+    margin-left: 30px;
+    margin-right: 30px;
+    display: flex;
+    gap: 30px;
+}
+
+button {
+    color: #4f6228;
+}
+
+.header-center {
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.header-logo {
+    height: 80px;
+    margin-right: 10px;
+}
+
+/* Hamburger Icon */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 5px;
+}
+
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    border-radius: 2px;
+}
+
+/* Mobile Menu Dropdown */
+.mobile-menu {
+    display: none;
+    flex-direction: column;
+    background-color: #4A5D23;
+    padding: 10px;
+    position: absolute;
+    top: 100%;
+    width: 100%;
+    left: 0;
+}
+
+.mobile-menu .header-button {
+    width: 100%;
+    text-align: left;
+    padding: 10px;
+    font-size: 16px;
+    color: #4A5D23;
+    background-color: white;
+}
+
+.mobile-menu .header-button:hover {
+    background-color: #f1f1f1;
+}
+
+/* Responsive Design for Mobile */
+@media (max-width: 768px) {
+    .header-left, .header-right {
+        margin-left: 10px;
+        margin-right: q0px;
+        display: flex;
+        gap: 15px;
+    }
+
+}

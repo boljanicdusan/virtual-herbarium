@@ -1,0 +1,17 @@
+<header class="header">
+    <div class="header-left">
+        <a class="btn btn-light" [routerLink]="['/plans']" >Početna</a>
+        <a class="btn btn-light" [routerLink]="['/about-us']" >O nama</a>
+        <a *ngIf="!hiddenForMobile" class="btn btn-light" href="assets/files/Uputstva_izmjenjeno.pdf" target="_blank">Uputstva za izradu herbarijuma</a>
+        <a *ngIf="hiddenForMobile" class="btn btn-light" href="assets/files/Uputstva_izmjenjeno.pdf" target="_blank">Uputstva</a>
+    </div>
+    <div *ngIf="!hiddenForMobile" class="header-center">
+        <img src="../assets/logo/pmf.png" alt="University Logo" class="header-logo">
+    </div>
+    <div *ngIf="!hiddenForMobile" class="header-right">
+        <a *ngIf="!authService.isAuthenticated()" role="button" class="btn btn-light" [routerLink]="['/login']">Uloguj se</a>
+        <a *ngIf="authService.isAuthenticated()" role="button" class="btn btn-light" (click)="authService.logout()">Izloguj se</a>
+    </div>
+
+
+</header>

@@ -1,0 +1,26 @@
+<div class="carousel">
+    <!-- Image Wrapper -->
+    <div class="carousel-inner">
+      <img
+        *ngFor="let img of images; let i = index"
+        [src]="img"
+        [class.active]="i === currentIndex"
+        alt="Slide Image"
+        (mouseenter)="stopAutoSlide()"
+        (mouseleave)="startAutoSlide()"
+      />
+    </div>
+
+    <!-- Previous & Next Buttons -->
+    <button class="prev" (click)="prev()">&#10094;</button>
+    <button class="next" (click)="next()">&#10095;</button>
+
+    <!-- Dots Navigation -->
+    <div class="dots">
+      <span
+        *ngFor="let img of images; let i = index"
+        [class.active]="i === currentIndex"
+        (click)="goToSlide(i)">
+      </span>
+    </div>
+  </div>

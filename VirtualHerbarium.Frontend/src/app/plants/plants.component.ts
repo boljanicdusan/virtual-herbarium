@@ -10,7 +10,6 @@ import { environment } from 'src/environments/environment';
 
 export class PlantsComponent implements OnInit {
 
-    baseUrl = environment.baseUrl;
 
     constructor(public authService: AuthService) { }
 

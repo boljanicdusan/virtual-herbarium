@@ -1,0 +1,12 @@
+.main {
+    width: 80%;
+    background-color: #ffffff;
+    align-items: center;
+    border: 1px solid #4f6228;
+}
+
+@media only screen and (max-width: 750px) {
+    .main {
+        width: 100%;
+    }
+}

@@ -1,83 +1,68 @@
-<div class="ml-5 mr-5">
-
-    <form>
-        <div class="row mb-5">
-            <div class="col-lg-2 col-md-6 col-sm-12">
-                <div class="form-group">
-                    <label for="vrsta">Vrsta/Rod</label>
-                    <input [(ngModel)]="plantFilterParams.vrsta" name="vrsta" type="text" class="form-control" id="vrsta">
-                </div>
-            </div>
-            <div class="col-lg-2 col-md-6 col-sm-12">
-                <div class="form-group">
-                    <label for="porodica">Porodica</label>
-                    <input [(ngModel)]="plantFilterParams.porodica" name="porodica" type="text" class="form-control" id="porodica">
-                </div>
-            </div>
-            <div class="col-lg-2 col-md-6 col-sm-12">
-                <div class="form-group">
-                    <label for="red">Red</label>
-                    <input [(ngModel)]="plantFilterParams.red" name="red" type="text" class="form-control" id="red">
-                </div>
-            </div>
-            <div class="col-lg-2 col-md-6 col-sm-12">
-                <div class="form-group">
-                    <label for="staniste">Stanište</label>
-                    <input [(ngModel)]="plantFilterParams.staniste" name="staniste" type="text" class="form-control" id="staniste">
-                </div>
-            </div>
-            <div class="col-lg-2 col-md-6 col-sm-12">
-                <div class="form-group">
-                    <label for="mjesto">Mjesto</label>
-                    <input [(ngModel)]="plantFilterParams.mjesto" name="mjesto" type="text" class="form-control" id="mjesto">
-                </div>
-            </div>
-            <div class="col-lg-2 col-md-6 col-sm-12 search-button">
-                <button type="submit" class="btn btn-success" (click)="search()">Pretraži</button>
+<form>
+    <div class="row mb-5">
+        <div class="col-lg-2 col-md-6 col-sm-12">
+            <div class="form-group">
+                <label for="vrsta">Vrsta/Rod</label>
+                <input [(ngModel)]="plantFilterParams.vrsta" name="vrsta" type="text" class="form-control" id="vrsta">
             </div>
         </div>
-    </form>
-
-    <button *ngIf="authService.isAuthenticated()" type="button" class="btn btn-success mb-3" [routerLink]="['/plants/new']">Dodaj novu biljku</button>
-
-    <div class="row">
-        <div class="col-12">
-            <div *ngIf="isLoading" class="loader"></div>
-            <table *ngIf="!isLoading" class="table table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">Vrsta</th>
-                        <th scope="col" *ngIf="!hiddenForMobile">Porodica</th>
-                        <th scope="col" *ngIf="!hiddenForMobile">Red</th>
-                        <th scope="col" *ngIf="authService.isAuthenticated() && !hiddenForTablet">Akcije</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let plant of plants; index as i">
-                        <th scope="row" class="cursor-pointer" [routerLink]="['/plants/details/', plant.id]"><em>{{ plant.vrsta }}</em></th>
-                        <td *ngIf="!hiddenForMobile">{{ plant.porodica }}</td>
-                        <td *ngIf="!hiddenForMobile">{{ plant.red }}</td>
-                        <td *ngIf="authService.isAuthenticated() && !hiddenForTablet">
-                            <a class="mr-2" [routerLink]="['/plants/edit/', plant.id]">Izmijeni</a>
-                            <a class="cursor-pointer" [routerLink]="" (click)="delete(plant.id)">Izbrisi</a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="col-lg-2 col-md-6 col-sm-12">
+            <div class="form-group">
+                <label for="porodica">Porodica</label>
+                <input [(ngModel)]="plantFilterParams.porodica" name="porodica" type="text" class="form-control" id="porodica">
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-6 col-sm-12">
+            <div class="form-group">
+                <label for="red">Red</label>
+                <input [(ngModel)]="plantFilterParams.red" name="red" type="text" class="form-control" id="red">
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-6 col-sm-12">
+            <div class="form-group">
+                <label for="staniste">Stanište</label>
+                <input [(ngModel)]="plantFilterParams.staniste" name="staniste" type="text" class="form-control" id="staniste">
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-6 col-sm-12">
+            <div class="form-group">
+                <label for="mjesto">Mjesto</label>
+                <input [(ngModel)]="plantFilterParams.mjesto" name="mjesto" type="text" class="form-control" id="mjesto">
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-6 col-sm-12 search-button">
+            <button type="submit" class="btn btn-success" (click)="search()">Pretraži</button>
         </div>
     </div>
+</form>
 
+<button *ngIf="authService.isAuthenticated()" type="button" class="btn btn-success mb-3" [routerLink]="['/plants/new']">Dodaj novu biljku</button>
+
+<div class="row">
+    <div class="col-12">
+        <div *ngIf="isLoading" class="loader"></div>
+        <table *ngIf="!isLoading" class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Vrsta</th>
+                    <th scope="col" *ngIf="!hiddenForMobile">Porodica</th>
+                    <th scope="col" *ngIf="!hiddenForMobile">Red</th>
+                    <th scope="col" *ngIf="authService.isAuthenticated() && !hiddenForTablet">Akcije</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let plant of plants; index as i">
+                    <th scope="row" class="cursor-pointer" [routerLink]="['/plants/details/', plant.id]"><em>{{ plant.vrsta }}</em></th>
+                    <td *ngIf="!hiddenForMobile">{{ plant.porodica }}</td>
+                    <td *ngIf="!hiddenForMobile">{{ plant.red }}</td>
+                    <td *ngIf="authService.isAuthenticated() && !hiddenForTablet">
+                        <a class="mr-2" [routerLink]="['/plants/edit/', plant.id]">Izmijeni</a>
+                        <a class="cursor-pointer" [routerLink]="" (click)="delete(plant.id)">Izbrisi</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 
-<footer *ngIf="plants && plants.length > 7" class="footer">
-    <div class="row">
-        <div class="col-sm-12 col-md-6 ">
-            <h6>Admin: MSc Marina Šoškić (marinasoskic97@gmail.com)</h6>
-            <h6>Admin: Prof. dr Danijela Stešević (danijela.stesevic@ucg.ac.me)</h6>
-        </div>
-        <div class="col-sm-12 col-md-6 h-autor">
-            <h6>Kreator: Dušan Boljanić (boljanicdusan@gmail.com)</h6>
-        </div>
-    </div>
-</footer>
 

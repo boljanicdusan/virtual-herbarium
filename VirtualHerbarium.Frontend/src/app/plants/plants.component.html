@@ -1,18 +1,10 @@
 <div class="main ml-auto mr-auto">
-    <div class="row">
-        <div class="col-sm-6">
-            <a class="mt-2 ml-2 btn btn-outline-secondary" id="" href="assets/files/Posterzadanenauke.pdf" target="_blank">Uputstva za izradu herbarijuma</a>
-        </div>
-        <div class="col-sm-6 text-right">
-            <a *ngIf="!authService.isAuthenticated()" class="mt-2 mr-2 btn btn-outline-secondary" id="login-button" [routerLink]="['/login']">Uloguj se</a>
-            <a *ngIf="authService.isAuthenticated()" role="button" class="mt-2 mr-2 btn btn-outline-secondary" [routerLink]="" (click)="authService.logout()">Izloguj se</a>
-        </div>
-    </div>
-    <div class="mb-5">
+
+    <div class="mb-5 mt-4">
         <div class="row">
             <div class="col-sm-12 col-md-5 h-title-img">
                 <a [routerLink]="['/plants']">
-                    <img src="../../assets/logo/cc9588a8-ce03-4b30-839f-f6ac86414f3b_200x200.png" alt="logo" />
+                    <img src="../../assets/logo/logo_DIGITALNI_HERBARIJUM.png" alt="logo" class="logo-image" />
                 </a>
             </div>
             <div class="col-sm-12 col-md-7 h-title">

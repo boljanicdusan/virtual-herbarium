@@ -1,127 +1,70 @@
-<div class="row mb-5">
+<div class="row mb-3">
     <div class="col-12">
         <a [routerLink]="['']" class="btn btn-success">
             < Nazad</a>
     </div>
 </div>
 
-<div class="row">
-    <div class="col-sm-12 col-lg-6 p-5">
-        <div *ngIf="plant.vrsta">
-            <div class="row">
-                <div class="col-4">
-                    <h5>Vrsta:</h5>
-                </div>
-                <div class="col-8">
-                    <em>{{ plant.vrsta }}</em>
-                </div>
-            </div>
+<div class="row plants-container">
+    <div class="col-sm-12 col-lg-6 plants-table-map">
 
-            <hr>
-        </div>
-
-        <div *ngIf="plant.porodica">
-            <div class="row">
-                <div class="col-4">
-                    <h5>Porodica:</h5>
-                </div>
-                <div class="col-8">
-                    {{ plant.porodica }}
-                </div>
-            </div>
-
-            <hr>
-        </div>
-
-        <div *ngIf="plant.red">
-            <div class="row">
-                <div class="col-4">
-                    <h5>Red:</h5>
-                </div>
-                <div class="col-8">
-                    {{ plant.red }}
-                </div>
-            </div>
-
-            <hr>
-        </div>
-
-        <div *ngIf="plant.trivijalniNaziv">
-            <div class="row">
-                <div class="col-4">
-                    <h5>Narodni naziv:</h5>
-                </div>
-                <div class="col-8">
-                    {{ plant.trivijalniNaziv }}
-                </div>
-            </div>
-
-            <hr>
-        </div>
-
-        <div *ngIf="plant.sinonim">
-            <div class="row">
-                <div class="col-4">
-                    <h5>Sinonim:</h5>
-                </div>
-                <div class="col-8">
-                    <em>{{ plant.sinonim }}</em>
-                </div>
-            </div>
-
-            <hr>
-        </div>
-
-        <div *ngIf="plant.opis">
-            <div class="row">
-                <div class="col-4">
-                    <h5>Opis i zanimljivosti:</h5>
-                </div>
-                <div class="col-8">
-                    {{ plant.opis }}
-                </div>
-            </div>
-
-            <hr>
-        </div>
+        <table class="table table-striped plants-table">
+            <tbody>
+                <tr *ngIf="plant.vrsta">
+                    <td><h5>Vrsta:</h5></td>
+                    <td><em>{{ plant.vrsta }}</em></td>
+                </tr>
+                <tr *ngIf="plant.porodica">
+                    <td><h5>Porodica:</h5></td>
+                    <td><em>{{ plant.porodica }}</em></td>
+                </tr>
+                <tr *ngIf="plant.red">
+                    <td><h5>Red:</h5></td>
+                    <td><em>{{ plant.red }}</em></td>
+                </tr>
+                <tr *ngIf="plant.trivijalniNaziv">
+                    <td><h5>Narodni naziv:</h5></td>
+                    <td><em>{{ plant.trivijalniNaziv }}</em></td>
+                </tr>
+                <tr *ngIf="plant.sinonim">
+                    <td><h5>Sinonim:</h5></td>
+                    <td><em>{{ plant.sinonim }}</em></td>
+                </tr>
+                <tr *ngIf="plant.opis">
+                    <td><h5>Opis i zanimljivosti:</h5></td>
+                    <td><em>{{ plant.opis }}</em></td>
+                </tr>
+            </tbody>
+        </table>
 
     </div>
-    <div class="col-sm-12">
-        <div class="row">
+    <div class="col-sm-12 col-lg-6">
+        <div class="row plants-photos">
             <div class="col-sm-12 ">
-                <div *ngIf="plant.slike && plant.slike.length > 0" class="row">
+                <div *ngIf="slike && slike.length > 0" class="row">
                     <div class="col-12 pl-5">
-                        <h5>Slike:</h5>
+                        <h5>Fotogalerija:</h5>
                     </div>
                 </div>
-                <div class="row">
-                    <div *ngFor="let item of plant.slike; let i = index" class="col-auto text-center">
-                        <img class="max-height-350 max-width-350 m-3" src="{{ baseUrl }}images/{{ item.slika }}" (click)="showLightboxSlika(i,'slika')" [alt]="item.slika">
+                <div class="photo-galery">
+                    <div *ngFor="let item of slike; let i = index">
+                        <img class="max-height-100 max-width-100 m-3" src="{{ baseUrl }}images/{{ item.slika }}" appDisableRightClick appDisableDrag appDisableLongPress (click)="showLightboxSlika(i,'slika')" [alt]="item.slika">
                     </div>
-                    <ng-image-fullscreen-view [images]="imagesObject" [imageIndex]="selectedImageIndex" [show]="showFlag" (close)="closeEventHandler()"></ng-image-fullscreen-view>
+                    <ng-image-fullscreen-view appDisableRightClick appDisableDrag appDisableLongPress [images]="imagesObject" [imageIndex]="selectedImageIndex" [show]="showFlag" (close)="closeEventHandler()"></ng-image-fullscreen-view>
                 </div>
-            </div>
-            <div class="col-sm-12 col-md-6">
-                <div *ngIf="plant.slikeUPrirodi && plant.slikeUPrirodi.length > 0" class="row">
-                    <div class="col-12 pl-5">
-                        <h5>Slike iz prirode:</h5>
-                    </div>
-                </div>
-                <div class="row">
-                    <div *ngFor="let item of plant.slikeUPrirodi; let i = index" class="col-auto text-center">
-                        <img class="max-height-350 max-width-350 m-3" src="{{ baseUrl }}images/{{ item.slika }}" (click)="showLightboxSlika(i,'slikaUPrirodi')" [alt]="item.slika">
-                    </div>
-                </div>
+
             </div>
         </div>
     </div>
 </div>
 
-
 <div class="row mt-3">
-    <div class="col-12">
+    <div class="col-sm-12 col-lg-6">
+
         <google-map
-            height="800px"
+            #map
+            class="plants-map"
+            height="600px"
             width="100%"
             [zoom]="zoom"
             [center]="center"
