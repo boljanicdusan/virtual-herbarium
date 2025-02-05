@@ -20,7 +20,8 @@ namespace VirtualHerbarium.Backend.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllPlants(string vrsta, string porodica, string red, string staniste, string mjesto)
         {
-            var result = await _plantService.GetAllPlants(vrsta, porodica, red, staniste, mjesto);
+            var includeDraft = User.Identity.IsAuthenticated;
+            var result = await _plantService.GetAllPlants(vrsta, porodica, red, staniste, mjesto, includeDraft);
             return Ok(result);
         }
 

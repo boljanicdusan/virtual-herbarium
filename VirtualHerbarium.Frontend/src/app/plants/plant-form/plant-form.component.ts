@@ -41,7 +41,7 @@ export class PlantFormComponent implements OnInit {
             });
     }
 
-    save() {
+    createOrUpdatePlant() {
         if (this.plant.id) {
             this.plantService.update(this.plant)
                 .subscribe(
@@ -69,6 +69,16 @@ export class PlantFormComponent implements OnInit {
                 }
             );
         }
+    }
+
+    save() {
+        this.plant.isDraft = false;
+        this.createOrUpdatePlant();
+    }
+
+    saveAsDraft() {
+        this.plant.isDraft = true;
+        this.createOrUpdatePlant();
     }
 
     imageUploaded(event, type: 'slika' | 'slikaUPrirodi') {

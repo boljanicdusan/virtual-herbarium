@@ -22,7 +22,7 @@ namespace VirtualHerbarium.Backend.Services
             _mapper = mapper;
         }
 
-        public async Task<List<PlantDto>> GetAllPlants(string vrsta, string porodica, string red, string staniste, string mjesto)
+        public async Task<List<PlantDto>> GetAllPlants(string vrsta, string porodica, string red, string staniste, string mjesto, bool includeDraft = false)
         {
             var query = _context.Plants.AsQueryable();
 
@@ -49,6 +49,11 @@ namespace VirtualHerbarium.Backend.Services
             if (!string.IsNullOrWhiteSpace(mjesto))
             {
                 query = query.Where(p => p.LokacijeBiljaka.Any(lb => lb.Mjesto.Contains(mjesto)));
+            }
+
+            if (!includeDraft)
+            {
+                query = query.Where(p => !p.IsDraft);
             }
 
             var plants = await query.OrderBy(b => b.Vrsta).ToListAsync();

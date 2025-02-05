@@ -12,11 +12,11 @@ export class PlantService {
     constructor(private http: HttpClient) { }
 
     getAllPlants(params: any): Observable<Plant[]> {
-        return this.http.get<Plant[]>(this.url, { params });
+        return this.http.get<Plant[]>(this.url, { params, headers: this.createAuthHeaders() });
     }
 
     getPlantById(id): Observable<Plant> {
-        return this.http.get<Plant>(this.url + id);
+        return this.http.get<Plant>(this.url + id, { headers: this.createAuthHeaders() });
     }
 
     create(plant: Plant): Observable<Plant> {

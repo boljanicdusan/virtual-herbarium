@@ -10,7 +10,7 @@
     </div>
     <div *ngIf="!hiddenForMobile" class="header-right">
         <a *ngIf="!authService.isAuthenticated()" role="button" class="btn btn-light" [routerLink]="['/login']">Uloguj se</a>
-        <a *ngIf="authService.isAuthenticated()" role="button" class="btn btn-light" (click)="authService.logout()">Izloguj se</a>
+        <a *ngIf="authService.isAuthenticated()" role="button" class="btn btn-light" [routerLink]="['/plants']" (click)="authService.logout()">Izloguj se</a>
     </div>
 
 

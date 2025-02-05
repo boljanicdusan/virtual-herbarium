@@ -58,6 +58,7 @@
                     <td *ngIf="authService.isAuthenticated() && !hiddenForTablet">
                         <a class="mr-2" [routerLink]="['/plants/edit/', plant.id]">Izmijeni</a>
                         <a class="cursor-pointer" [routerLink]="" (click)="delete(plant.id)">Izbrisi</a>
+                        <span *ngIf="plant.isDraft" class="is-draft ml-2">Nacrt</span>
                     </td>
                 </tr>
             </tbody>

@@ -11,6 +11,7 @@ export class Plant {
     staniste: string;
     mjesto: string;
     opis: string;
+    isDraft = false;
     // slika: string;
     // slikaBase64: string;
     // slikaUPrirodi: string;

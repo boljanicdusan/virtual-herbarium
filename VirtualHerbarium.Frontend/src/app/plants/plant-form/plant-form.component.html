@@ -85,6 +85,7 @@
             </div>
             <input type="file" class="form-control" id="slika-u-prirodi" name="slikaUPrirodi" (change)="imageUploaded($event, 'slikaUPrirodi')">
         </div>
+        <button type="button" (click)="saveAsDraft()" class="btn btn-success mr-2">Sačuvaj kao nacrt</button>
         <button type="submit" class="btn btn-success">Sačuvaj</button>
     </form>
 </div>

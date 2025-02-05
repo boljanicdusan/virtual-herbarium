@@ -20,6 +20,8 @@ namespace VirtualHerbarium.Backend.Entities
         public string Staniste { get; set; }
         public string Mjesto { get; set; }
         public string Opis { get; set; }
+
+        public bool IsDraft { get; set; }
         // public string Slika { get; set; }
         // public string SlikaUPrirodi { get; set; }
 
