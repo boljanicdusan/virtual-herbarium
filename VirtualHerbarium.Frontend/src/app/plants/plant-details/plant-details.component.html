@@ -11,28 +11,28 @@
         <table class="table table-striped plants-table">
             <tbody>
                 <tr *ngIf="plant.vrsta">
-                    <td><h5>Vrsta:</h5></td>
+                    <td><h6>Vrsta:</h6></td>
                     <td><em>{{ plant.vrsta }}</em></td>
                 </tr>
                 <tr *ngIf="plant.porodica">
-                    <td><h5>Porodica:</h5></td>
-                    <td><em>{{ plant.porodica }}</em></td>
+                    <td><h6>Porodica:</h6></td>
+                    <td>{{ plant.porodica }}</td>
                 </tr>
                 <tr *ngIf="plant.red">
-                    <td><h5>Red:</h5></td>
-                    <td><em>{{ plant.red }}</em></td>
+                    <td><h6>Red:</h6></td>
+                    <td>{{ plant.red }}</td>
                 </tr>
                 <tr *ngIf="plant.trivijalniNaziv">
-                    <td><h5>Narodni naziv:</h5></td>
-                    <td><em>{{ plant.trivijalniNaziv }}</em></td>
+                    <td><h6>Narodni naziv:</h6></td>
+                    <td>{{ plant.trivijalniNaziv }}</td>
                 </tr>
                 <tr *ngIf="plant.sinonim">
-                    <td><h5>Sinonim:</h5></td>
-                    <td><em>{{ plant.sinonim }}</em></td>
+                    <td><h6>Sinonim:</h6></td>
+                    <td>{{ plant.sinonim }}</td>
                 </tr>
                 <tr *ngIf="plant.opis">
-                    <td><h5>Opis i zanimljivosti:</h5></td>
-                    <td><em>{{ plant.opis }}</em></td>
+                    <td><h6>Opis i zanimljivosti:</h6></td>
+                    <td>{{ plant.opis }}</td>
                 </tr>
             </tbody>
         </table>
