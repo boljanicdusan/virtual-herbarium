@@ -24,6 +24,7 @@
         "@angular/router": "~10.1.5",
         "bootstrap": "^4.4.0",
         "core-js": "^2.5.4",
+        "jquery": "^3.7.1",
         "ng-image-fullscreen-view": "^1.0.3",
         "rxjs": "~6.3.3",
         "tslib": "^1.9.0",
